@@ -47,7 +47,7 @@ import hashlib
 				"xmlns:ers='ers.ise.cisco.com'",
 				"xmlns:xs='http://www.w3.org/2001/XMLSchema'",
 				"xmlns:ns4='network.ers.ise.cisco.com'>",
-				"<link rel='self' href='https://"+self.ise_ip_address+":9060/ers/config/networkdevice/"self.device_id+"' type='application/xml'/>",
+				"<link rel='self' href='https://"+self.ise_ip_address+":9060/ers/config/networkdevice/"+self.device_id+"' type='application/xml'/>",
 				"<authenticationSettings>",
 					"<enableKeyWrap>false</enableKeyWrap>",
 					"<keyInputFormat>ASCII</keyInputFormat>",
@@ -72,7 +72,7 @@ import hashlib
 					"<originatingPolicyServicesNode>Auto</originatingPolicyServicesNode>",
 					"<pollingInterval>28800</pollingInterval>",
 					"<roCommunity>"+self.snmp_community_string+"</roCommunity>",
-					"<version>"self.snmp_version+"</version>",
+					"<version>"+self.snmp_version+"</version>",
 				"</snmpsettings>",
 			"</ns4:networkdevice>")
 		
