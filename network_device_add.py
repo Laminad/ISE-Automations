@@ -1,4 +1,6 @@
 class NetworkDeviceAdd(self):
+
+import hashlib
 	
 	def __init__(self):
 		self.device_id = ''
@@ -32,6 +34,9 @@ class NetworkDeviceAdd(self):
 		
 	def get_snmp_community_string(self):
 		self.snmp_community_string = input('Enter the device snmp community string: ')
+		
+	def generate_device_id(self):
+		self.device_id = hashlib.sha256(self.device_hostname)
 		
 	def print_network_add_api_post(self):
 		print(
@@ -73,6 +78,7 @@ class NetworkDeviceAdd(self):
 		
 
 	if __name__ == '__main__':
+		#Collecting Device details
 		self.get_device_hostname()
 		self.get_device_ip_address()
 		self.get_ise_ip_address()
@@ -80,4 +86,7 @@ class NetworkDeviceAdd(self):
 		self.get_device_group()
 		self.get_device_location()
 		self.get_snmp_community_string()
+		
+		#Using device details to input missing API values
+		self.generate_device_id()
 		self.print_network_add_api_post()
