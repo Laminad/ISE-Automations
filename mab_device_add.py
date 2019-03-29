@@ -1,7 +1,9 @@
 class MABDeviceAdd(self):
 
+
 	import hashlib
 
+	
 	def __init__(self):
 		self.endpoint_name = ''
 		self.endpoint_id = ''
