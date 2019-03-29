@@ -9,3 +9,8 @@ Currently Planned Automations:
 -----------------------------
 Network Device Add and Removal <br>
 MAB Database Device Add and Removal
+
+
+This is the API User Guide for anyone wanting to modify these scripts.
+
+https://www.cisco.com/c/en/us/td/docs/security/ise/2-4/api_ref_guide/api_ref_book.pdf
