@@ -1,5 +1,6 @@
 import hashlib as hl
 
+
 class NetworkDeviceAdd:
 
 
