@@ -15,7 +15,7 @@ class NetworkDeviceAdd:
 		self.snmp_version = 'TWO_C'
 		self.snmp_community_string = ''
 
-
+		
 	def get_device_hostname(self): 
 		self.device_hostname = input('Enter the device hostname: ')
 
