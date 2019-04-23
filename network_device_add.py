@@ -93,6 +93,7 @@ class NetworkDeviceAdd:
 			"</ns4:networkdevice>\n")
 
 
+		
 if __name__ == '__main__':
 	nda = NetworkDeviceAdd()
 	nda.get_device_hostname()
