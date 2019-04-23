@@ -1,7 +1,6 @@
-class NetworkDeviceAdd(self):
+import hashlib as hl
 
-
-	import hashlib
+class NetworkDeviceAdd:
 	
 	
 	def __init__(self):
@@ -29,8 +28,8 @@ class NetworkDeviceAdd(self):
 		self.ise_ip_address = input('Enter the IP address of the ISE ERS enabled node: ')
 		
 		
-	def get_radius_shared_secert(self):
-		self.radius_shared_secert = input('Enter the RADIUS Shared Secert: ')	
+	def get_radius_shared_secret(self):
+		self.radius_shared_secret = input('Enter the RADIUS Shared secret: ')	
 	
 	
 	def get_device_group(self):
@@ -46,7 +45,8 @@ class NetworkDeviceAdd(self):
 		
 		
 	def generate_device_id(self):
-		self.device_id = hashlib.sha256(self.device_hostname)
+		hostname = self.device_hostname.encode(encoding='UTF-8', errors='strict')
+		self.device_id = str(hl.sha256(hostname))
 		
 		
 	def print_network_add_api_post(self):
@@ -56,55 +56,53 @@ class NetworkDeviceAdd(self):
 		#Content-Type: application/vnd.com.cisco.ise.network.networkdevice.1.1+xml; charset=utf-8
 
 		print(
-		"<?xml version='1.0' encoding='UTF-8' standalone='yes'?>",
-			"<ns4:networkdevice", 
-				"id="+self.device_id,
-				"name="+self.device_name,
-				"xmlns:ers='ers.ise.cisco.com'",
-				"xmlns:xs='http://www.w3.org/2001/XMLSchema'",
-				"xmlns:ns4='network.ers.ise.cisco.com'>",
-				"<link rel='self' href='https://"+self.ise_ip_address+":9060/ers/config/networkdevice/"+self.device_id+"' type='application/xml'/>",
-				"<authenticationSettings>",
-					"<enableKeyWrap>false</enableKeyWrap>",
-					"<keyInputFormat>ASCII</keyInputFormat>",
-					"<networkProtocol>RADIUS</networkProtocol>",
-					"<radiusSharedSecret>"+self.radius_shared_secret+"</radiusSharedSecret>",
-				"</authenticationSettings>",
-				"<coaPort>1700</coaPort>",
-				"<NetworkDeviceIPList>",
-					"<NetworkDeviceIP>",
-						"<ipaddress>"+self.device_ip_address+"</ipaddress>",
-						"<mask>"+self.device_subnet_mask+"</mask>",
-					"</NetworkDeviceIP>",
-				"</NetworkDeviceIPList>",
-				"<NetworkDeviceGroupList>",
-					"<NetworkDeviceGroup>"+self.device_group+"</NetworkDeviceGroup>",
-					"<NetworkDeviceGroup>"+self.device_location+"</NetworkDeviceGroup>",
-				"</NetworkDeviceGroupList>",
-				"<profileName>Cisco</profileName>",
-				"<snmpsettings>",
-					"<linkTrapQuery>true</linkTrapQuery>",
-					"<macTrapQuery>true</macTrapQuery>",
-					"<originatingPolicyServicesNode>Auto</originatingPolicyServicesNode>",
-					"<pollingInterval>28800</pollingInterval>",
-					"<roCommunity>"+self.snmp_community_string+"</roCommunity>",
-					"<version>"+self.snmp_version+"</version>",
-				"</snmpsettings>",
-			"</ns4:networkdevice>")
+		"<?xml version='1.0' encoding='UTF-8' standalone='yes'?>\n"
+			"<ns4:networkdevice\n" 
+				"id="+self.device_id+"\n"
+				"name="+self.device_hostname+"\n"
+				"xmlns:ers='ers.ise.cisco.com'\n"
+				"xmlns:xs='http://www.w3.org/2001/XMLSchema'\n"
+				"xmlns:ns4='network.ers.ise.cisco.com'>\n"
+				"<link rel='self' href='https://"+self.ise_ip_address+":9060/ers/config/networkdevice/"+self.device_id+"' type='application/xml'/>\n"
+				"<authenticationSettings>\n"
+					"<enableKeyWrap>false</enableKeyWrap>\n"
+					"<keyInputFormat>ASCII</keyInputFormat>\n"
+					"<networkProtocol>RADIUS</networkProtocol>\n"
+					"<radiusSharedSecret>"+self.radius_shared_secret+"</radiusSharedSecret>\n"
+				"</authenticationSettings>\n"
+				"<coaPort>1700</coaPort>\n"
+				"<NetworkDeviceIPList>\n"
+					"<NetworkDeviceIP>\n"
+						"<ipaddress>"+self.device_ip_address+"</ipaddress>\n"
+						"<mask>"+self.device_subnet_mask+"</mask>\n"
+					"</NetworkDeviceIP>\n"
+				"</NetworkDeviceIPList>\n"
+				"<NetworkDeviceGroupList>\n"
+					"<NetworkDeviceGroup>"+self.device_group+"</NetworkDeviceGroup>\n"
+					"<NetworkDeviceGroup>"+self.device_location+"</NetworkDeviceGroup>\n"
+				"</NetworkDeviceGroupList>\n"
+				"<profileName>Cisco</profileName>\n"
+				"<snmpsettings>\n"
+					"<linkTrapQuery>true</linkTrapQuery>\n"
+					"<macTrapQuery>true</macTrapQuery>\n"
+					"<originatingPolicyServicesNode>Auto</originatingPolicyServicesNode>\n"
+					"<pollingInterval>28800</pollingInterval>\n"
+					"<roCommunity>"+self.snmp_community_string+"</roCommunity>\n"
+					"<version>"+self.snmp_version+"</version>\n"
+				"</snmpsettings>\n"
+			"</ns4:networkdevice>\n")
 		
 
-	if __name__ == '__main__':
-		#Collecting Device details.
-		self.get_device_hostname()
-		self.get_device_ip_address()
-		self.get_ise_ip_address()
-		self.get_radius_shared_secret()
-		self.get_device_group()
-		self.get_device_location()
-		self.get_snmp_community_string()
-		
-		#Using Device details to input missing API values.
-		self.generate_device_id()
-		self.print_network_add_api_post()
-		
-		
+if __name__ == '__main__':
+	nda = NetworkDeviceAdd()
+	nda.get_device_hostname()
+	nda.get_device_ip_address()
+	nda.get_ise_ip_address()
+	nda.get_radius_shared_secret()
+	nda.get_device_group()
+	nda.get_device_location()
+	nda.get_snmp_community_string()
+	
+	#Using Device details to input missing API values.
+	nda.generate_device_id()
+	nda.print_network_add_api_post()
