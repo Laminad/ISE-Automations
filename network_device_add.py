@@ -46,7 +46,7 @@ class NetworkDeviceAdd:
 
 	def generate_device_id(self):
 		hostname = self.device_hostname.encode(encoding='UTF-8', errors='strict')
-		self.device_id = str(hl.sha256(hostname))
+		self.device_id = hl.sha256(hostname).hexdigest()
 
 
 	def print_network_add_api_post(self):
