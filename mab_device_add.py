@@ -49,7 +49,7 @@ class MABDeviceAdd(self):
 		
 	def enpoint_add_api_post_output(self):
 	
-		#Method: GET
+		#Method: PUT
 		#URI: https://ISE_IP_ADDRESS:9060/ers/config/endpoint
 		#HTTP Accept header:application/vnd.com.cisco.ise.identity.endpoint.1.0+xml 
 		
