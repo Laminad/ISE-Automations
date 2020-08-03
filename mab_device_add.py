@@ -1,7 +1,7 @@
+import hashlib
+
+
 class MABDeviceAdd(self):
-
-
-	import hashlib
 
 	
 	def __init__(self):
